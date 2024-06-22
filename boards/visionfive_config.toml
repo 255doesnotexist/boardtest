@@ -6,12 +6,47 @@ bund_rate = 115200
 serial_name = "sdwirec_alpha"
 
 [os_list]
-[os_list.Arch_Linux]
-url = "URL_TO_ARCH_LINUX_IMAGE"
+[os_list.Fedora]
+url = "URL_TO_FEDORA_IMAGE"
 dd_params = ["bs=4M", "conv=fsync"]
-test_config = "./tests/arch_linux_test.toml"
+test_config = "./tests/fedora_test.toml"
+
+[os_list.openEuler]
+url = "URL_TO_OPENEULER_IMAGE"
+dd_params = ["bs=4M", "conv=fsync"]
+test_config = "./tests/openeuler_test.toml"
+
+[os_list.openKylin]
+url = "URL_TO_OPENKYLIN_IMAGE"
+dd_params = ["bs=4M", "conv=fsync"]
+test_config = "./tests/openkylin_test.toml"
+
+[os_list.OpenBSD]
+url = "URL_TO_OPENBSD_IMAGE"
+dd_params = ["bs=4M", "conv=fsync"]
+test_config = "./tests/openbsd_test.toml"
+
+[os_list.OpenSUSE]
+url = "URL_TO_OPENSUSE_IMAGE"
+dd_params = ["bs=4M", "conv=fsync"]
+test_config = "./tests/opensuse_test.toml"
 
 [os_list.Ubuntu]
 url = "URL_TO_UBUNTU_IMAGE"
 dd_params = ["bs=4M", "conv=fsync"]
 test_config = "./tests/ubuntu_test.toml"
+
+[os_list.Armbian]
+url = "URL_TO_ARMBIAN_IMAGE"
+dd_params = ["bs=4M", "conv=fsync"]
+test_config = "./tests/armbian_test.toml"
+
+[os_list.Buildroot]
+url = "URL_TO_BUILDROOT_IMAGE"
+dd_params = ["bs=4M", "conv=fsync"]
+test_config = "./tests/buildroot_test.toml"
+
+[os_list.OpenWRT]
+url = "URL_TO_OPENWRT_IMAGE"
+dd_params = ["bs=4M", "conv=fsync"]
+test_config = "./tests/openwrt_test.toml"

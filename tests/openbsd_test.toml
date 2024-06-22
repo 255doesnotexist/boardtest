@@ -1,0 +1,5 @@
+tests = [
+    {name = "uname_test", command = "uname -a", expected_output = "OpenBSD", method = "contains", timeout = 10},
+    {name = "os_release_test", command = "sysctl kern.version", expected_output = "OpenBSD", method = "contains", timeout = 10},
+    {name = "cpu_info_test", command = "dmesg | grep CPU", expected_output = "CPU", method = "contains", timeout = 10}
+]

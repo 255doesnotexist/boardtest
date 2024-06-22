@@ -4,5 +4,6 @@ if __name__ == "__main__":
     controller = MainController(board_config_path)
     
     for os_name in controller.board_config['os_list']:
+        print(f"Running test suite for OS: {os_name}...")
         results = controller.run_test_suite(os_name, serial)
         controller.generate_report(results)

@@ -5,11 +5,13 @@ from sd_mux_controller import SDMuxController
 
 class OSImageManager:
     def __init__(self, os_list, serial):
+        """Initialize the OS image manager with the given OS list and serial number."""
         self.os_list = os_list
         self.sd_mux = SDMuxController()
         self.serial = serial
     
     def download_image(self, os_name, url):
+        """Download the OS image from the specified URL if not already downloaded."""
         image_path = f"./images/{os_name}.img"
         if not os.path.exists(image_path):
             response = requests.get(url)
@@ -32,6 +34,9 @@ class OSImageManager:
         raise Exception("No new SD card device detected")
     
     def flash_image(self, os_name, device, dd_params):
+        """Flash the OS image to the SD card with the specified dd parameters."""
         image_path = f"./images/{os_name}.img"
         dd_command = ['sudo', 'dd', f'if={image_path}', f'of={device}'] + dd_params
+        print(f"Executing command: {' '.join(dd_command)}")
+        input("Press Enter to confirm and continue...")
         subprocess.run(dd_command)

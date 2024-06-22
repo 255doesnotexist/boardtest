@@ -1,0 +1,5 @@
+tests = [
+    {name = "uname_test", command = "uname -a", expected_output = "Linux", method = "contains", timeout = 10},
+    {name = "os_release_test", command = "cat /etc/os-release", expected_output = "openEuler", method = "contains", timeout = 10},
+    {name = "cpu_info_test", command = "cat /proc/cpuinfo", expected_output = "CPU", method = "contains", timeout = 10}
+]
