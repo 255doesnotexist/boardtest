@@ -11,21 +11,21 @@ class MainController:
         self.board_config = toml.load(board_config)
         self.sd_mux = SDMuxController()
         self.framework = TestFramework(self.board_config['test_framework'])
-        self.os_manager = OSImageManager(self.board_config['os_list'])
+        self.os_manager = OSImageManager(self.board_config['os_list'], self.board_config['serial']['serial_name'])
     
-    def run_test_suite(self, os_name):
+    def run_test_suite(self, os_name, serial):
         os_info = self.board_config['os_list'][os_name]
         url = os_info['url']
-        device = os_info['device']
         dd_params = os_info.get('dd_params', [])
         
-        self.sd_mux.connect_to_ts()
+        self.sd_mux.connect_to_ts(serial)
         
         image_path = self.os_manager.download_image(os_name, url)
+        device = self.os_manager.detect_device()
         self.os_manager.flash_image(os_name, device, dd_params)
         
-        self.sd_mux.connect_to_dut()
-        self.sd_mux.power_cycle_dut()
+        self.sd_mux.connect_to_dut(serial)
+        self.sd_mux.power_cycle_dut(serial)
         
         self.framework.start()
         
