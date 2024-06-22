@@ -1,43 +1,43 @@
 import os
 import time
+import toml
 from sd_mux_controller import SDMuxController
 from test_framework import TestFramework
 from os_image_manager import OSImageManager
+from test_manager import TestManager
 
 class MainController:
-    def __init__(self, config, os_list):
+    def __init__(self, board_config):
+        self.board_config = toml.load(board_config)
         self.sd_mux = SDMuxController()
-        self.framework = TestFramework(config)
-        self.os_manager = OSImageManager(os_list)
+        self.framework = TestFramework(self.board_config['test_framework'])
+        self.os_manager = OSImageManager(self.board_config['os_list'])
     
-    def run_test_suite(self, os_name, url):
+    def run_test_suite(self, os_name):
+        os_info = self.board_config['os_list'][os_name]
+        url = os_info['url']
+        device = os_info['device']
+        dd_params = os_info.get('dd_params', [])
+        
         self.sd_mux.connect_to_ts()
         
         image_path = self.os_manager.download_image(os_name, url)
-        self.os_manager.flash_image(os_name, "/dev/sdX")  # should be actual sdmux device path
+        self.os_manager.flash_image(os_name, device, dd_params)
         
         self.sd_mux.connect_to_dut()
         self.sd_mux.power_cycle_dut()
         
         self.framework.start()
         
-        # Example commands to verify OS
-        self.framework.run_command("\x03")
-        self.framework.check_output(["login"])
-        self.framework.run_command("pi")
-        self.framework.check_output(["Password"])
-        self.framework.run_command("pi")
-        
-        # Check system information
-        uname = self.framework.run_command("uname -a")
-        os_release = self.framework.run_command("cat /etc/os-release")
-        cpu_info = self.framework.run_command("cat /proc/cpuinfo")
+        test_config = os_info.get('test_config', './tests/default.toml')
+        test_manager = TestManager(test_config)
+        results = test_manager.execute_tests(self.framework)
         
         self.framework.stop()
         
-        return uname, os_release, cpu_info
+        return results
     
-    def generate_report(self, uname, os_release, cpu_info):
-        report = f"uname: {uname}\n\nos_release: {os_release}\n\ncpu_info: {cpu_info}\n"
+    def generate_report(self, results):
+        report = "\n".join([f"Test {i+1}: {'PASS' if result else 'FAIL'}" for i, result in enumerate(results)])
         with open("test_report.txt", "w") as f:
             f.write(report)

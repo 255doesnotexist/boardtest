@@ -11,9 +11,9 @@ class TestFramework:
     def stop(self):
         self.driver.stop()
     
-    def run_command(self, cmd):
-        return self.driver.assert_script_run(cmd, 5)
+    def run_command(self, cmd, timeout):
+        return self.driver.assert_script_run(cmd, timeout)
     
-    def check_output(self, patterns):
+    def check_output(self, patterns, timeout):
         for pattern in patterns:
-            self.driver.assert_wait_string_ntimes(pattern, 1, 10)
+            self.driver.assert_wait_string_ntimes(pattern, 1, timeout)

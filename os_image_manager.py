@@ -7,12 +7,14 @@ class OSImageManager:
         self.os_list = os_list
     
     def download_image(self, os_name, url):
-        response = requests.get(url)
         image_path = f"./images/{os_name}.img"
-        with open(image_path, 'wb') as file:
-            file.write(response.content)
+        if not os.path.exists(image_path):
+            response = requests.get(url)
+            with open(image_path, 'wb') as file:
+                file.write(response.content)
         return image_path
     
-    def flash_image(self, os_name, device):
+    def flash_image(self, os_name, device, dd_params):
         image_path = f"./images/{os_name}.img"
-        subprocess.run(['sudo', 'dd', f'if={image_path}', f'of={device}', 'bs=4M', 'conv=fsync'])
+        dd_command = ['sudo', 'dd', f'if={image_path}', f'of={device}'] + dd_params
+        subprocess.run(dd_command)

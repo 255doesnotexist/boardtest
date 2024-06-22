@@ -1,0 +1,18 @@
+[test_framework]
+log_dir = "./logs"
+[serial]
+serial_file = "/dev/ttyUSB0"
+bund_rate = 115200
+
+[os_list]
+[os_list.Arch_Linux]
+url = "URL_TO_ARCH_LINUX_IMAGE"
+device = "/dev/sdX"
+dd_params = ["bs=4M", "conv=fsync"]
+test_config = "./tests/arch_linux_test.toml"
+
+[os_list.Ubuntu]
+url = "URL_TO_UBUNTU_IMAGE"
+device = "/dev/sdX"
+dd_params = ["bs=4M", "conv=fsync"]
+test_config = "./tests/ubuntu_test.toml"
