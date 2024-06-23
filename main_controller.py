@@ -13,6 +13,7 @@ class MainController:
         self.sd_mux = SDMuxController()
         self.framework = TestFramework(self.board_config['test_framework'])
         self.os_manager = OSImageManager(self.board_config['os_list'], self.board_config['serial']['serial_name'])
+        self.sd_mux_device = self.board_config['serial']['sd_mux_device']
     
     def run_test_suite(self, os_name, serial):
         """Run the test suite for the specified OS name and serial number."""
@@ -24,7 +25,7 @@ class MainController:
         self.sd_mux.connect_to_ts(serial)
         
         image_path = self.os_manager.download_image(os_name, url)
-        device = self.os_manager.detect_device()
+        device = self.sd_mux_device if self.sd_mux_device else self.os_manager.detect_device()
         self.os_manager.flash_image(os_name, device, dd_params)
         
         print(f"Connecting SD card to device under test for OS {os_name}...")

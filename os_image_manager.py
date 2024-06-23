@@ -24,6 +24,7 @@ class OSImageManager:
     def detect_device(self):
         """
         Detect the SD card device by connecting it to the test server and checking for new partitions.
+        (Will not be maintained. Recommend for name your device in config)
         """
         self.sd_mux.connect_to_ts(self.serial)
         time.sleep(5)
