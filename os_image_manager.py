@@ -21,28 +21,36 @@ class OSImageManager:
                 file.write(response.content)
         return image_path
 
-    def list_dev_directory():
-        # 执行 'ls /dev' 命令并获取输出
-        result = subprocess.run(['ls', '/dev'], capture_output=True, text=True)
-        # 将输出字符串分割成列表，然后转换成集合
-        devices = set(result.stdout.split())
-        return devices
-
     def detect_device(self):
         """
         Detect the SD card device by connecting it to the test server and checking for new partitions.
         """
-        self.sd_mux.connect_to_dut(self.serial)
-        time.sleep(5)
-        devices_before = set(os.listdir('/dev'))
-        devices_before = {device for device in devices_before if "sd" in device}
-        print(devices_before)
-        input("Please insert the SD card and press Enter to continue...")
         self.sd_mux.connect_to_ts(self.serial)
         time.sleep(5)
-        devices_after = set(os.listdir('/dev'))
+
+        devices_origin = set(os.listdir('/dev'))
+        self.sd_mux.connect_to_dut(self.serial)
+        
+        devices_before = devices_origin
+        while devices_before == devices_origin:
+            print("Waiting...")
+            time.sleep(0.5)
+            devices_before = set(os.listdir('/dev'))
+        
+        devices_before = {device for device in devices_before if "sd" in device}
+        
+        input("Please confirm the SD card is connected and press Enter to continue...")
+
+        devices_origin = set(os.listdir('/dev'))
+        self.sd_mux.connect_to_ts(self.serial)
+
+        devices_after = devices_origin
+        while devices_after == devices_origin:
+            print("Waiting...")
+            time.sleep(0.5)
+            devices_after = set(os.listdir('/dev'))
+
         devices_after = {device for device in devices_after if "sd" in device}
-        print(devices_after)
         
         # Find all base sd devices before and after
         base_devices_before = {device for device in devices_before if re.match(r'sd[a-z]$', device)}
@@ -52,8 +60,6 @@ class OSImageManager:
         new_partitions = {device for device in devices_after if re.match(r'sd[a-z]\d+$', device)}
         old_partitions = {device for device in devices_before if re.match(r'sd[a-z]\d+$', device)}
         actual_new_partitions = {partition for partition in new_partitions if partition not in old_partitions}
-        print(actual_new_partitions)
-        print(old_partitions)
         
         # If there are new partitions, find the base device(s) they belong to
         if actual_new_partitions:
