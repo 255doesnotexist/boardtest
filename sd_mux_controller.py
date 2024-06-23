@@ -3,21 +3,40 @@ import subprocess
 class SDMuxController:
     def list_devices(self):
         """List all devices connected to the SD-Mux controller."""
-        result = subprocess.run(['sudo', 'sd-mux-ctrl', '-l'], capture_output=True, text=True)
+        command = ['sudo', 'sd-mux-ctrl', '-l']
+        print(f"Executing command: {' '.join(command)}")
+        result = subprocess.run(command, capture_output=True, text=True)
+        print("Listing all connected devices:")
         print(result.stdout)
     
     def set_serial(self, serial):
         """Set the serial number for the SD-Mux controller."""
-        subprocess.run(['sudo', 'sd-mux-ctrl', '--set-serial', serial])
+        command = ['sudo', 'sd-mux-ctrl', '--set-serial', serial]
+        print(f"Executing command: {' '.join(command)}")
+        result = subprocess.run(command, capture_output=True, text=True)
+        print(f"Setting serial number to {serial}:")
+        print(result.stdout if result.stdout else "Serial number set successfully.")
     
     def connect_to_dut(self, serial):
         """Connect the SD card to the Device Under Test (DUT)."""
-        subprocess.run(['sudo', 'sd-mux-ctrl', '--dut', f'--device-serial={serial}'])
+        command = ['sudo', 'sd-mux-ctrl', '--dut', f'--device-serial={serial}']
+        print(f"Executing command: {' '.join(command)}")
+        result = subprocess.run(command, capture_output=True, text=True)
+        print(f"Connecting SD card to DUT with serial {serial}:")
+        print(result)
     
     def connect_to_ts(self, serial):
         """Connect the SD card to the Test Server (TS)."""
-        subprocess.run(['sudo', 'sd-mux-ctrl', '--ts', f'--device-serial={serial}'])
+        command = ['sudo', 'sd-mux-ctrl', '--ts', f'--device-serial={serial}']
+        print(f"Executing command: {' '.join(command)}")
+        result = subprocess.run(command, capture_output=True, text=True)
+        print(f"Connecting SD card to TS with serial {serial}:")
+        print(result.stdout if result.stdout else "Connected to TS successfully.")
     
     def power_cycle_dut(self, serial):
         """Power cycle the Device Under Test (DUT)."""
-        subprocess.run(['sudo', 'sd-mux-ctrl', '--tick', '--tick-time=2000', f'--device-serial={serial}'])
+        command = ['sudo', 'sd-mux-ctrl', '--tick', '--tick-time=2000', f'--device-serial={serial}']
+        print(f"Executing command: {' '.join(command)}")
+        result = subprocess.run(command, capture_output=True, text=True)
+        print(f"Power cycling DUT with serial {serial}:")
+        print(result.stdout if result.stdout else "Power cycle completed successfully.")

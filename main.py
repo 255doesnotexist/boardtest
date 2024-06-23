@@ -1,3 +1,6 @@
+from boardtest.main_controller import MainController
+
+
 if __name__ == "__main__":
     board_config_path = "./boards/visionfive_config.toml"
     serial = "sdwirec_alpha"
