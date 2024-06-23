@@ -6,15 +6,16 @@ import time
 from sd_mux_controller import SDMuxController
 
 class OSImageManager:
-    def __init__(self, os_list, serial):
+    def __init__(self, board_name, os_list, serial):
         """Initialize the OS image manager with the given OS list and serial number."""
+        self.board_name = board_name
         self.os_list = os_list
         self.sd_mux = SDMuxController()
         self.serial = serial
     
     def download_image(self, os_name, url):
         """Download the OS image from the specified URL if not already downloaded."""
-        image_path = f"./images/{os_name}.img"
+        image_path = f"./images/{self.board_name}_{os_name}.img"
         if not os.path.exists(image_path):
             response = requests.get(url)
             with open(image_path, 'wb') as file:

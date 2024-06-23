@@ -11,9 +11,10 @@ class MainController:
         """Initialize the main controller with the given board configuration."""
         self.board_config = toml.load(board_config)
         self.sd_mux = SDMuxController()
-        self.framework = TestFramework(self.board_config['test_framework'])
-        self.os_manager = OSImageManager(self.board_config['os_list'], self.board_config['serial']['serial_name'])
         self.sd_mux_device = self.board_config['serial']['sd_mux_device']
+        self.board_name = self.board_config['board']['board_name']
+        self.framework = TestFramework(self.board_config['test_framework'])
+        self.os_manager = OSImageManager(self.board_name, self.board_config['os_list'], self.board_config['serial']['serial_name'])
     
     def run_test_suite(self, os_name, serial):
         """Run the test suite for the specified OS name and serial number."""

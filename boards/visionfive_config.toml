@@ -1,5 +1,9 @@
 [test_framework]
 log_dir = "./logs"
+
+[board]
+board_name = "visionfive"
+
 [serial]
 serial_file = "/dev/ttyUSB0"
 bund_rate = 115200
