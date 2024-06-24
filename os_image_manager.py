@@ -16,6 +16,10 @@ class OSImageManager:
     def download_image(self, os_name, url):
         """Download the OS image from the specified URL if not already downloaded."""
         image_path = f"./images/{self.board_name}_{os_name}.img"
+
+        if os.path.exists(url):
+            image_path = url
+
         if not os.path.exists(image_path):
             response = requests.get(url)
             with open(image_path, 'wb') as file:

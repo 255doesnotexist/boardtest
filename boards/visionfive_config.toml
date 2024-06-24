@@ -12,7 +12,7 @@ sd_mux_device = "/dev/sda"
 
 [os_list]
 [os_list.Fedora]
-url = "URL_TO_FEDORA_IMAGE"
+url = "./images/Fedora-riscv64-jh7100-developer-xfce-Rawhide-20211226-214100.n.0-sda.raw"
 dd_params = ["bs=4M", "conv=fsync"]
 test_config = "./tests/fedora_test.toml"
 
