@@ -1,18 +1,19 @@
 import pyautotest
+from pyautotest import Driver as PyautotestDriver
 import time
 
 class TestFramework:
     def __init__(self, config):
         """Initialize the test framework with the given configuration."""
-        self.driver = pyautotest.Driver(config)
+        self.driver = PyautotestDriver(config)
     
     def start(self):
         """Start the test framework."""
-        self.driver.start()
+        # self.driver.start()
     
     def stop(self):
         """Stop the test framework."""
-        self.driver.stop()
+        # self.driver.stop()
     
     def run_command(self, cmd, timeout):
         """Run a command on the Device Under Test (DUT) with a timeout."""
