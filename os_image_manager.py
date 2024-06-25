@@ -82,3 +82,7 @@ class OSImageManager:
         print(f"Executing command: {' '.join(dd_command)}")
         input("Press Enter to confirm and continue...")
         subprocess.run(dd_command)
+        sync_command = ['sync']
+        subprocess.run(sync_command)
+        sync_command = ['sudo', 'eject', device]
+        subprocess.run(dd_command)
