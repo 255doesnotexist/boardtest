@@ -27,7 +27,7 @@ class MainController:
         
         image_path = self.os_manager.download_image(os_name, url)
         device = self.sd_mux_device if self.sd_mux_device else self.os_manager.detect_device()
-        self.os_manager.flash_image(os_name, device, dd_params)
+        self.os_manager.flash_image(os_name, device, dd_params, image_path)
         
         print(f"Connecting SD card to device under test for OS {os_name}...")
         self.sd_mux.connect_to_dut(serial)
