@@ -13,7 +13,15 @@ class MainController:
         self.sd_mux = SDMuxController()
         self.sd_mux_device = self.board_config['serial']['sd_mux_device']
         self.board_name = self.board_config['board']['board_name']
-        self.framework = TestFramework(self.board_config['test_framework'])
+        self.framework = TestFramework(
+            f"""
+            log_dir = "{self.board_config['test_framework']['log_dir']}"
+            [env]
+            [serial]
+            serial_file = "{self.board_config['serial']['serial_file']}"
+            bund_rate   = {self.board_config['serial']['bund_rate']}
+            """
+        )
         self.os_manager = OSImageManager(self.board_name, self.board_config['os_list'], self.board_config['serial']['serial_name'])
     
     def run_test_suite(self, os_name, serial, flash=True, test=True):
