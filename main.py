@@ -1,4 +1,4 @@
-from boardtest.main_controller import MainController
+from main_controller import MainController
 
 
 flash = False
