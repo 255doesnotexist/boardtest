@@ -83,5 +83,5 @@ class OSImageManager:
         subprocess.run(dd_command)
         sync_command = ['sync']
         subprocess.run(sync_command)
-        sync_command = ['sudo', 'eject', device]
-        subprocess.run(dd_command)
+        eject_command = ['sudo', 'eject', device]
+        subprocess.run(eject_command)
