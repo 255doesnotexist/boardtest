@@ -11,47 +11,8 @@ serial_name = "sdwirec_alpha"
 sd_mux_device = "/dev/sda"
 
 [os_list]
-[os_list.Fedora]
-url = "./images/Fedora-riscv64-jh7100-developer-xfce-Rawhide-20211226-214100.n.0-sda.raw"
-dd_params = ["bs=4M", "conv=fsync", "status=progress"]
-test_config = "./tests/fedora_test.toml"
-
 [os_list.openEuler]
-url = "URL_TO_OPENEULER_IMAGE"
+url = "/home/xyz/.local/share/ruyi/blobs/oerv-starfive-visionfive-base-0
+.2309.1/openEuler-23.09-V1-base-visionfive-preview.img"
 dd_params = ["bs=4M", "conv=fsync", "status=progress"]
 test_config = "./tests/openeuler_test.toml"
-
-[os_list.openKylin]
-url = "URL_TO_OPENKYLIN_IMAGE"
-dd_params = ["bs=4M", "conv=fsync", "status=progress"]
-test_config = "./tests/openkylin_test.toml"
-
-[os_list.OpenBSD]
-url = "URL_TO_OPENBSD_IMAGE"
-dd_params = ["bs=4M", "conv=fsync", "status=progress"]
-test_config = "./tests/openbsd_test.toml"
-
-[os_list.OpenSUSE]
-url = "URL_TO_OPENSUSE_IMAGE"
-dd_params = ["bs=4M", "conv=fsync", "status=progress"]
-test_config = "./tests/opensuse_test.toml"
-
-[os_list.Ubuntu]
-url = "URL_TO_UBUNTU_IMAGE"
-dd_params = ["bs=4M", "conv=fsync", "status=progress"]
-test_config = "./tests/ubuntu_test.toml"
-
-[os_list.Armbian]
-url = "URL_TO_ARMBIAN_IMAGE"
-dd_params = ["bs=4M", "conv=fsync", "status=progress"]
-test_config = "./tests/armbian_test.toml"
-
-[os_list.Buildroot]
-url = "URL_TO_BUILDROOT_IMAGE"
-dd_params = ["bs=4M", "conv=fsync", "status=progress"]
-test_config = "./tests/buildroot_test.toml"
-
-[os_list.OpenWRT]
-url = "URL_TO_OPENWRT_IMAGE"
-dd_params = ["bs=4M", "conv=fsync", "status=progress"]
-test_config = "./tests/openwrt_test.toml"
