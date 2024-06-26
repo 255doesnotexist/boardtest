@@ -13,7 +13,7 @@ sudo PYTHONPATH=. /home/xyz/miniconda3/envs/autotest/bin/python main.py
 
 # Device Compatibility
 
-- SD-Mux Devices: sdwirec_alpha (tested)
+- SD-Mux Devices: SDWireC (tested)
 - Serial Devices: CP2102 USB-UART
 
 # Dependency
