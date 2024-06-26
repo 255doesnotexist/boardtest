@@ -12,7 +12,6 @@ sd_mux_device = "/dev/sda"
 
 [os_list]
 [os_list.openEuler]
-url = "/home/xyz/.local/share/ruyi/blobs/oerv-starfive-visionfive-base-0
-.2309.1/openEuler-23.09-V1-base-visionfive-preview.img"
+url = "/home/xyz/.local/share/ruyi/blobs/oerv-starfive-visionfive-base-0.2309.1/openEuler-23.09-V1-base-visionfive-preview.img"
 dd_params = ["bs=4M", "conv=fsync", "status=progress"]
 test_config = "./tests/openeuler_test.toml"
