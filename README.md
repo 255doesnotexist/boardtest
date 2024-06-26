@@ -15,3 +15,8 @@ sudo PYTHONPATH=. /home/xyz/miniconda3/envs/autotest/bin/python main.py
 
 - SD-Mux Devices: sdwirec_alpha (tested)
 - Serial Devices: CP2102 USB-UART
+
+# Dependency
+
+- sd-mux-ctrl binary added to PATH
+- t-autotest framework
