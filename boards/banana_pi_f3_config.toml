@@ -1,0 +1,17 @@
+[test_framework]
+log_dir = "./logs"
+
+[board]
+board_name = "banana_pi_f3five"
+
+[serial]
+serial_file = "/dev/ttyUSB0"
+bund_rate = 115200
+serial_name = "sdwirec_alpha"
+sd_mux_device = "/dev/sda"
+
+[os_list]
+[os_list.Armbian]
+url = "/home/xyz/2024-06-14-Armbian-bpi-SpacemiT_24.5.0-trunk_Bananapif3_sid_legacy_6.1.15.img"
+dd_params = ["bs=4M", "conv=fsync", "status=progress"]
+test_config = "./tests/armbian_test.toml"
