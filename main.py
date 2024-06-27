@@ -1,8 +1,8 @@
 from main_controller import MainController
 
 
-flash = True
-test = False
+flash = False
+test = True
 
 if __name__ == "__main__":
     board_config_path = "./boards/visionfive_config.toml"

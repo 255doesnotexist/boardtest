@@ -22,4 +22,4 @@ class TestFramework:
     def check_output(self, patterns, timeout):
         """Check the output for specific patterns within a timeout."""
         for pattern in patterns:
-            self.driver.assert_wait_string_ntimes(pattern, 1, timeout)
+            self.driver.assert_wait_string(pattern, timeout)

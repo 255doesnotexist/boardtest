@@ -32,12 +32,24 @@ conf = f"""
     [env]
     [serial]
     serial_file = "/dev/ttyUSB0"
+    auto_login = true
+    username    = "root"
+    password    = "bianbu"
     disable_echo = true
     """
 
-print("pts:", shell.get_pts())
-
 d = pyautotest.Driver(conf)
+
+# d.writeln("\x03")
+# d.assert_wait_string("login", 30)
+# d.sleep(3)
+
+# d.writeln("root")
+# d.assert_wait_string("Password", 10)
+
+# d.sleep(3)
+# d.writeln("bianbu")
+
 res = d.assert_script_run('whoami', 10)
 print("whoami:", res)
 d.stop()
