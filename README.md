@@ -19,4 +19,5 @@ sudo PYTHONPATH=. /home/xyz/miniconda3/envs/autotest/bin/python main.py
 # Dependency
 
 - sd-mux-ctrl binary added to PATH
-- t-autotest framework
+- pyserial, toml, and etc
+- sudo permisson (to access /dev/sdX and /dev/ttyUSBX)

@@ -5,7 +5,7 @@ flash = False
 test = True
 
 if __name__ == "__main__":
-    board_config_path = "./boards/visionfive_config.toml"
+    board_config_path = "./boards/banana_pi_f3_config.toml"
     serial = "sdwirec_alpha"
     controller = MainController(board_config_path)
     

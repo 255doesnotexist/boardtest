@@ -20,6 +20,10 @@ class MainController:
             [serial]
             serial_file = "{self.board_config['serial']['serial_file']}"
             bund_rate   = {self.board_config['serial']['bund_rate']}
+            auto_login = true
+            username = "root"
+            password = "bianbu"
+            stdout_log = true
             """
         )
         self.os_manager = OSImageManager(self.board_name, self.board_config['os_list'], self.board_config['serial']['serial_name'])
