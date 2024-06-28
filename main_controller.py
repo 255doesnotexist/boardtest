@@ -6,6 +6,8 @@ from test_framework import TestFramework
 from os_image_manager import OSImageManager
 from test_manager import TestManager
 from texttable import Texttable
+from rich.console import Console
+from rich.prompt import Confirm
 
 class MainController:
     def __init__(self, board_config):
@@ -15,6 +17,7 @@ class MainController:
         self.sd_mux_device = self.board_config['serial']['sd_mux_device']
         self.board_name = self.board_config['board']['board_name']
         self.os_manager = OSImageManager(self.board_name, self.board_config['os_list'], self.board_config['serial']['serial_name'])
+        self.console = Console()
     
     def run_test_suite(self, os_name, serial, flash=True, test=True, stdout_log=True):
         """Run the test suite for the specified OS name and serial number."""
@@ -23,19 +26,29 @@ class MainController:
         dd_params = os_info.get('dd_params', [])
         
         if flash:
+            self.console.print(f"\n[bold cyan]Preparing to flash OS {os_name}...[/bold cyan]")
+            if not Confirm.ask("Do you want to continue with flashing the OS image? [y/N]", default=False):
+                self.console.print("[bold red]Flashing aborted by user.[/bold red]")
+                return
+            
             image_path = self.os_manager.download_image(os_name, url)
             device = self.sd_mux_device if self.sd_mux_device else self.os_manager.detect_device()
             
-            print(f"Connecting SD card to test server for OS {os_name} flashing...")
+            self.console.print(f"[bold yellow]Connecting SD card to test server for OS {os_name} flashing...[/bold yellow]")
             self.sd_mux.connect_to_ts(serial)
             self.os_manager.flash_image(os_name, device, dd_params, image_path)
             
-            print(f"Connecting SD card to device under test for OS {os_name}...")
+            self.console.print(f"[bold yellow]Connecting SD card to device under test for OS {os_name}...[/bold yellow]")
             self.sd_mux.connect_to_dut(serial)
             self.sd_mux.power_cycle_dut(serial)
         
         if test:
-            print("Starting test framework...")
+            self.console.print(f"\n[bold cyan]Preparing to start test framework for OS {os_name}...[/bold cyan]")
+            if not Confirm.ask("Do you want to continue with testing? [y/N]", default=False):
+                self.console.print("[bold red]Testing aborted by user.[/bold red]")
+                return
+            
+            self.console.print("Starting test framework...")
             
             # 获取OS相关的自动登录、默认用户名密码、login password shell prompt
             auto_login = os_info.get('auto_login', True)
@@ -68,7 +81,7 @@ class MainController:
             test_manager = TestManager(test_config)
             results = test_manager.execute_tests(self.framework)
             
-            print("Stopping test framework...")
+            self.console.print("Stopping test framework...")
             self.framework.stop()
             
             return results
@@ -99,4 +112,4 @@ class MainController:
         with open("report.txt", "w") as f:
             f.write(report_content)
         
-        print("Test report generated: report.txt")
+        self.console.print("[bold green]Test report generated: report.txt[/bold green]")

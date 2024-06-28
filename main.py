@@ -7,8 +7,8 @@ def parse_args():
     )
     
     parser.add_argument(
-        "-f", "--flash", action="store_true", default=True,
-        help="Enable flashing the OS image before testing. (default: enabled)"
+        "-f", "--flash", action="store_true", default=False,
+        help="Enable flashing the OS image before testing. (default: disabled)"
     )
     parser.add_argument(
         "--no-flash", dest="flash", action="store_false",
@@ -23,8 +23,8 @@ def parse_args():
         help="Disable running tests after flashing."
     )
     parser.add_argument(
-        "-s", "--stdout-log", action="store_true", default=True,
-        help="Enable logging output to stdout. (default: enabled)"
+        "-s", "--stdout-log", action="store_true", default=False,
+        help="Enable logging output to stdout. (default: disabled)"
     )
     parser.add_argument(
         "--no-stdout-log", dest="stdout_log", action="store_false",
