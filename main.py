@@ -51,5 +51,9 @@ if __name__ == "__main__":
         print(f"Running test suite for OS: {os_name}...")
         print("="*50)
         results = controller.run_test_suite(os_name, args.serial, args.flash, args.test, args.stdout_log)
-        controller.generate_report(results)
+        print("\n")
+        if results is not None:
+            controller.generate_report(results)
+        else:
+            print("No test results need to generate report.")
         print("\n")
