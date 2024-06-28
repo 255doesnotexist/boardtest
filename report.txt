@@ -179,27 +179,27 @@
                                      [?2004l MemTotal:                                                                                          
                                          3917196 kB                                                                                              
                                           MemFree:                                                                                               
-                                         2790628 kB                                                                                              
+                                         2789620 kB                                                                                              
                                        MemAvailable:                                                                                             
-                                         3407712 kB                                                                                              
+                                         3406960 kB                                                                                              
                                           Buffers:                                                                                               
-                                          47280 kB                                                                                               
+                                          47528 kB                                                                                               
                                           Cached:                                                                                                
                                          570420 kB                                                                                               
                                         SwapCached:                                                                                              
                                             0 kB                                                                                                 
                                           Active:                                                                                                
-                                         127964 kB                                                                                               
+                                         128220 kB                                                                                               
                                          Inactive:                                                                                               
-                                         803484 kB                                                                                               
+                                         803508 kB                                                                                               
                                        Active(anon):                                                                                             
                                           3472 kB                                                                                                
                                       Inactive(anon):                                                                                            
-                                         319436 kB                                                                                               
+                                         319468 kB                                                                                               
                                        Active(file):                                                                                             
-                                         124492 kB                                                                                               
+                                         124748 kB                                                                                               
                                       Inactive(file):                                                                                            
-                                         484048 kB                                                                                               
+                                         484040 kB                                                                                               
                                         Unevictable:                                                                                             
                                             0 kB                                                                                                 
                                           Mlocked:                                                                                               
@@ -213,21 +213,21 @@
                                          Writeback:                                                                                              
                                             0 kB                                                                                                 
                                          AnonPages:                                                                                              
-                                         313772 kB                                                                                               
+                                         313836 kB                                                                                               
                                           Mapped:                                                                                                
-                                         176168 kB                                                                                               
+                                         176172 kB                                                                                               
                                            Shmem:                                                                                                
                                           9160 kB                                                                                                
                                        KReclaimable:                                                                                             
-                                          55632 kB                                                                                               
+                                          55640 kB                                                                                               
                                            Slab:                                                                                                 
-    4         cat /proc/meminfo          107696 kB               MemTotal               contains                           PASS                  
+    4         cat /proc/meminfo          107804 kB               MemTotal               contains                           PASS                  
                                        SReclaimable:                                                                                             
-                                          55632 kB                                                                                               
+                                          55640 kB                                                                                               
                                         SUnreclaim:                                                                                              
-                                          52064 kB                                                                                               
+                                          52164 kB                                                                                               
                                         KernelStack:                                                                                             
-                                          7520 kB                                                                                                
+                                          7488 kB                                                                                                
                                         PageTables:                                                                                              
                                           10232 kB                                                                                               
                                        SecPageTables:                                                                                            
@@ -245,7 +245,7 @@
                                        VmallocTotal:                                                                                             
                                         67108864 kB                                                                                              
                                         VmallocUsed:                                                                                             
-                                          30956 kB                                                                                               
+                                          30940 kB                                                                                               
                                        VmallocChunk:                                                                                             
                                             0 kB                                                                                                 
                                           Percpu:                                                                                                
@@ -291,4 +291,4 @@
                                         /run/user/0                                                                                              
                                           [?2004h                                                                                               
 
-Generated on: 2024-06-28 17:37:15
+Generated on: 2024-06-28 17:50:03
