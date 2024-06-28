@@ -46,6 +46,14 @@ if __name__ == "__main__":
     
     controller = MainController(args.board_config)
     
+    print(f"""
+          Serial: {args.serial}
+          Board config: {args.board_config}
+          Flashing: {args.flash}
+          Testing: {args.test}
+          Stdout log: {args.stdout_log}
+          """)
+
     for os_name in controller.board_config['os_list']:
         print("="*50)
         print(f"Running test suite for OS: {os_name}...")
