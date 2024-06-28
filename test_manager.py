@@ -26,12 +26,35 @@ class TestManager:
     
     def evaluate_result(self, output, expected_output, method, test_case):
         """Evaluate the result of a test case based on the specified method."""
+        result = {
+            "command": test_case['command'],
+            "output": output,
+            "expected_output": expected_output,
+            "method": method,
+            "success": False,
+            "reason": "",
+            "return_code": None
+        }
+
         if method == 'exact':
-            return output.strip() == expected_output
+            result['success'] = output.strip() == expected_output
+            if not result['success']:
+                result['reason'] = f"Output does not match expected output. Got: {output.strip()}"
         elif method == 'contains':
-            return expected_output in output
+            result['success'] = expected_output in output
+            if not result['success']:
+                result['reason'] = f"Expected output not found in output. Got: {output}"
         elif method == 'exit_code':
-            return subprocess.run(test_case['command'], shell=True).returncode == expected_output
+            process = subprocess.run(test_case['command'], shell=True)
+            result['return_code'] = process.returncode
+            result['success'] = process.returncode == expected_output
+            if not result['success']:
+                result['reason'] = f"Return code does not match expected output. Got: {process.returncode}"
         elif method == 'special_judge':
-            result = subprocess.run(['./tests/{}_special_judge.sh'.format(test_case['name']), output], capture_output=True)
-            return result.returncode == 0
+            result_process = subprocess.run(['./tests/{}_special_judge.sh'.format(test_case['name']), output], capture_output=True)
+            result['return_code'] = result_process.returncode
+            result['success'] = result_process.returncode == 0
+            if not result['success']:
+                result['reason'] = f"Special judge script returned non-zero exit code. Got: {result_process.returncode}"
+
+        return result

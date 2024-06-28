@@ -1,10 +1,11 @@
 import os
 import time
 import toml
-from sd_mux_controller import SDMuxController  # 假设这个模块存在
+from sd_mux_controller import SDMuxController
 from test_framework import TestFramework
-from os_image_manager import OSImageManager  # 假设这个模块存在
-from test_manager import TestManager  # 假设这个模块存在
+from os_image_manager import OSImageManager
+from test_manager import TestManager
+from texttable import Texttable
 
 class MainController:
     def __init__(self, board_config):
@@ -74,18 +75,28 @@ class MainController:
     
     def generate_report(self, results):
         """Generate a report based on the test results."""
-        report = "\n".join([f"Test {i+1}: {'PASS' if result else 'FAIL'}" for i, result in enumerate(results)])
-        with open("test_report.txt", "w") as f:
-            f.write(report)
-        print("Test report generated: test_report.txt")
-
-# 示例用法
-if __name__ == "__main__":
-    board_config_path = "path_to_board_config.toml"  # 请替换为实际的配置文件路径
-    main_controller = MainController(board_config_path)
-    
-    os_name = "example_os"  # 请替换为实际的OS名称
-    serial = "123456"  # 请替换为实际的设备序列号
-    
-    results = main_controller.run_test_suite(os_name, serial)
-    main_controller.generate_report(results)
+        table = Texttable()
+        table.set_deco(Texttable.HEADER)
+        table.set_cols_align(["c", "c", "c", "c", "c", "c"])
+        table.set_cols_valign(["m", "m", "m", "m", "m", "m"])
+        table.set_cols_width([10, 20, 20, 20, 20, 40])
+        table.add_rows([["Test #", "Command", "Output", "Expected Output", "Method", "Result"]])
+        
+        for i, result in enumerate(results):
+            status = "PASS" if result['success'] else "FAIL"
+            table.add_row([
+                i + 1,
+                result['command'],
+                result['output'],
+                result['expected_output'],
+                result['method'],
+                status
+            ])
+        
+        report_content = table.draw()
+        report_content += f"\n\nGenerated on: {time.strftime('%Y-%m-%d %H:%M:%S')}"
+        
+        with open("report.txt", "w") as f:
+            f.write(report_content)
+        
+        print("Test report generated: report.txt")

@@ -1,0 +1,294 @@
+  Test #           Command                 Output            Expected Output             Method                           Result                 
+=================================================================================================================================================
+                                     [?2004l Linux k1                                                                                           
+                                      6.1.15 #1.0 SMP                                                                                            
+                                     PREEMPT Thu May 30                                                                                          
+    1              uname -a          13:16:13 UTC 2024            Linux                 contains                           PASS                  
+                                      riscv64 riscv64                                                                                            
+                                     riscv64 GNU/Linux                                                                                           
+                                          [?2004h                                                                                               
+                                          [?2004l                                                                                               
+                                    PRETTY_NAME="Bianbu                                                                                          
+                                            1.0"                                                                                                 
+                                       NAME="Bianbu"                                                                                             
+                                      VERSION_ID="1.0"                                                                                           
+                                    VERSION="1.0 (Mantic                                                                                         
+                                         Minotaur)"                                                                                              
+                                    VERSION_CODENAME=man                                                                                         
+                                            tic                                                                                                  
+                                         ID=bianbu                                                                                               
+                                       ID_LIKE=debian                                                                                            
+    2        cat /etc/os-release      HOME_URL="coming            Bianbu                contains                           PASS                  
+                                           soon"                                                                                                 
+                                    SUPPORT_URL="coming                                                                                          
+                                           soon"                                                                                                 
+                                    BUG_REPORT_URL="comi                                                                                         
+                                          ng soon"                                                                                               
+                                    PRIVACY_POLICY_URL="                                                                                         
+                                        coming soon"                                                                                             
+                                    UBUNTU_CODENAME=mant                                                                                         
+                                             ic                                                                                                  
+                                      LOGO=ubuntu-logo                                                                                           
+                                          [?2004h                                                                                               
+                                     [?2004l processor                                                                                          
+                                            : 0                                                                                                  
+                                    hart            : 0                                                                                          
+                                     model name      :                                                                                           
+                                      Spacemit(R) X60                                                                                            
+                                    isa             : rv                                                                                         
+                                    64imafdcv_sscofpmf_s                                                                                         
+                                    stc_svpbmt_zicbom_zi                                                                                         
+                                    cboz_zicbop_zihintpa                                                                                         
+                                            use                                                                                                  
+                                     mmu             :                                                                                           
+                                            sv39                                                                                                 
+                                     mvendorid       :                                                                                           
+                                           0x710                                                                                                 
+                                     marchid         :                                                                                           
+                                     0x8000000058000001                                                                                          
+                                     mimpid          :                                                                                           
+                                     0x1000000049772200                                                                                          
+                                                                                                                                                 
+                                    processor       : 1                                                                                          
+                                    hart            : 1                                                                                          
+                                     model name      :                                                                                           
+                                      Spacemit(R) X60                                                                                            
+                                    isa             : rv                                                                                         
+                                    64imafdcv_sscofpmf_s                                                                                         
+                                    stc_svpbmt_zicbom_zi                                                                                         
+                                    cboz_zicbop_zihintpa                                                                                         
+                                            use                                                                                                  
+                                     mmu             :                                                                                           
+                                            sv39                                                                                                 
+                                     mvendorid       :                                                                                           
+                                           0x710                                                                                                 
+                                     marchid         :                                                                                           
+                                     0x8000000058000001                                                                                          
+                                     mimpid          :                                                                                           
+                                     0x1000000049772200                                                                                          
+                                                                                                                                                 
+                                    processor       : 2                                                                                          
+                                    hart            : 2                                                                                          
+                                     model name      :                                                                                           
+                                      Spacemit(R) X60                                                                                            
+                                    isa             : rv                                                                                         
+                                    64imafdcv_sscofpmf_s                                                                                         
+                                    stc_svpbmt_zicbom_zi                                                                                         
+                                    cboz_zicbop_zihintpa                                                                                         
+                                            use                                                                                                  
+                                     mmu             :                                                                                           
+                                            sv39                                                                                                 
+                                     mvendorid       :                                                                                           
+                                           0x710                                                                                                 
+                                     marchid         :                                                                                           
+                                     0x8000000058000001                                                                                          
+                                     mimpid          :                                                                                           
+                                     0x1000000049772200                                                                                          
+                                                                                                                                                 
+                                    processor       : 3                                                                                          
+                                    hart            : 3                                                                                          
+                                     model name      :                                                                                           
+                                      Spacemit(R) X60                                                                                            
+                                    isa             : rv                                                                                         
+                                    64imafdcv_sscofpmf_s                                                                                         
+                                    stc_svpbmt_zicbom_zi                                                                                         
+                                    cboz_zicbop_zihintpa                                                                                         
+                                            use                                                                                                  
+                                     mmu             :                                                                                           
+                                            sv39                                                                                                 
+                                     mvendorid       :                                                                                           
+                                           0x710                                                                                                 
+                                     marchid         :                                                                                           
+                                     0x8000000058000001                                                                                          
+                                     mimpid          :                                                                                           
+                                     0x1000000049772200                                                                                          
+    3         cat /proc/cpuinfo                                 processor               contains                           PASS                  
+                                    processor       : 4                                                                                          
+                                    hart            : 4                                                                                          
+                                     model name      :                                                                                           
+                                      Spacemit(R) X60                                                                                            
+                                    isa             : rv                                                                                         
+                                    64imafdcv_sscofpmf_s                                                                                         
+                                    stc_svpbmt_zicbom_zi                                                                                         
+                                    cboz_zicbop_zihintpa                                                                                         
+                                            use                                                                                                  
+                                     mmu             :                                                                                           
+                                            sv39                                                                                                 
+                                     mvendorid       :                                                                                           
+                                           0x710                                                                                                 
+                                     marchid         :                                                                                           
+                                     0x8000000058000001                                                                                          
+                                     mimpid          :                                                                                           
+                                     0x1000000049772200                                                                                          
+                                                                                                                                                 
+                                    processor       : 5                                                                                          
+                                    hart            : 5                                                                                          
+                                     model name      :                                                                                           
+                                      Spacemit(R) X60                                                                                            
+                                    isa             : rv                                                                                         
+                                    64imafdcv_sscofpmf_s                                                                                         
+                                    stc_svpbmt_zicbom_zi                                                                                         
+                                    cboz_zicbop_zihintpa                                                                                         
+                                            use                                                                                                  
+                                     mmu             :                                                                                           
+                                            sv39                                                                                                 
+                                     mvendorid       :                                                                                           
+                                           0x710                                                                                                 
+                                     marchid         :                                                                                           
+                                     0x8000000058000001                                                                                          
+                                     mimpid          :                                                                                           
+                                     0x1000000049772200                                                                                          
+                                                                                                                                                 
+                                    processor       : 6                                                                                          
+                                    hart            : 6                                                                                          
+                                     model name      :                                                                                           
+                                      Spacemit(R) X60                                                                                            
+                                    isa             : rv                                                                                         
+                                    64imafdcv_sscofpmf_s                                                                                         
+                                    stc_svpbmt_zicbom_zi                                                                                         
+                                    cboz_zicbop_zihintpa                                                                                         
+                                            use                                                                                                  
+                                     mmu             :                                                                                           
+                                            sv39                                                                                                 
+                                     mvendorid       :                                                                                           
+                                           0x710                                                                                                 
+                                     marchid         :                                                                                           
+                                     0x8000000058000001                                                                                          
+                                     mimpid          :                                                                                           
+                                     0x1000000049772200                                                                                          
+                                                                                                                                                 
+                                    processor       : 7                                                                                          
+                                    hart            : 7                                                                                          
+                                     model name      :                                                                                           
+                                      Spacemit(R) X60                                                                                            
+                                    isa             : rv                                                                                         
+                                    64imafdcv_sscofpmf_s                                                                                         
+                                    stc_svpbmt_zicbom_zi                                                                                         
+                                    cboz_zicbop_zihintpa                                                                                         
+                                            use                                                                                                  
+                                     mmu             :                                                                                           
+                                            sv39                                                                                                 
+                                     mvendorid       :                                                                                           
+                                           0x710                                                                                                 
+                                     marchid         :                                                                                           
+                                     0x8000000058000001                                                                                          
+                                     mimpid          :                                                                                           
+                                     0x1000000049772200                                                                                          
+                                                                                                                                                 
+                                          [?2004h                                                                                               
+                                     [?2004l MemTotal:                                                                                          
+                                         3917196 kB                                                                                              
+                                          MemFree:                                                                                               
+                                         2791460 kB                                                                                              
+                                       MemAvailable:                                                                                             
+                                         3408192 kB                                                                                              
+                                          Buffers:                                                                                               
+                                          46936 kB                                                                                               
+                                          Cached:                                                                                                
+                                         570420 kB                                                                                               
+                                        SwapCached:                                                                                              
+                                            0 kB                                                                                                 
+                                          Active:                                                                                                
+                                         127604 kB                                                                                               
+                                         Inactive:                                                                                               
+                                         803480 kB                                                                                               
+                                       Active(anon):                                                                                             
+                                          3472 kB                                                                                                
+                                      Inactive(anon):                                                                                            
+                                         319416 kB                                                                                               
+                                       Active(file):                                                                                             
+                                         124132 kB                                                                                               
+                                      Inactive(file):                                                                                            
+                                         484064 kB                                                                                               
+                                        Unevictable:                                                                                             
+                                            0 kB                                                                                                 
+                                          Mlocked:                                                                                               
+                                            0 kB                                                                                                 
+                                         SwapTotal:                                                                                              
+                                            0 kB                                                                                                 
+                                         SwapFree:                                                                                               
+                                            0 kB                                                                                                 
+                                           Dirty:                                                                                                
+                                           136 kB                                                                                                
+                                         Writeback:                                                                                              
+                                            0 kB                                                                                                 
+                                         AnonPages:                                                                                              
+                                         313740 kB                                                                                               
+                                          Mapped:                                                                                                
+                                         176156 kB                                                                                               
+                                           Shmem:                                                                                                
+                                          9160 kB                                                                                                
+                                       KReclaimable:                                                                                             
+                                          55624 kB                                                                                               
+                                           Slab:                                                                                                 
+    4         cat /proc/meminfo          107712 kB               MemTotal               contains                           PASS                  
+                                       SReclaimable:                                                                                             
+                                          55624 kB                                                                                               
+                                        SUnreclaim:                                                                                              
+                                          52088 kB                                                                                               
+                                        KernelStack:                                                                                             
+                                          7520 kB                                                                                                
+                                        PageTables:                                                                                              
+                                          10232 kB                                                                                               
+                                       SecPageTables:                                                                                            
+                                            0 kB                                                                                                 
+                                       NFS_Unstable:                                                                                             
+                                            0 kB                                                                                                 
+                                          Bounce:                                                                                                
+                                            0 kB                                                                                                 
+                                       WritebackTmp:                                                                                             
+                                            0 kB                                                                                                 
+                                        CommitLimit:                                                                                             
+                                         1958596 kB                                                                                              
+                                       Committed_AS:                                                                                             
+                                         2466648 kB                                                                                              
+                                       VmallocTotal:                                                                                             
+                                        67108864 kB                                                                                              
+                                        VmallocUsed:                                                                                             
+                                          30924 kB                                                                                               
+                                       VmallocChunk:                                                                                             
+                                            0 kB                                                                                                 
+                                          Percpu:                                                                                                
+                                          2976 kB                                                                                                
+                                         CmaTotal:                                                                                               
+                                         409600 kB                                                                                               
+                                          CmaFree:                                                                                               
+                                         399136 kB                                                                                               
+                                      HugePages_Total:                                                                                           
+                                             0                                                                                                   
+                                      HugePages_Free:                                                                                            
+                                             0                                                                                                   
+                                      HugePages_Rsvd:                                                                                            
+                                             0                                                                                                   
+                                      HugePages_Surp:                                                                                            
+                                             0                                                                                                   
+                                       Hugepagesize:                                                                                             
+                                          2048 kB                                                                                                
+                                          Hugetlb:                                                                                               
+                                            0 kB                                                                                                 
+                                          [?2004h                                                                                               
+                                     [?2004l 文件系统                                                                                           
+                                    大小  已用  可用 已用% 挂载点                                                                                         
+                                    tmpfs           383M                                                                                         
+                                      3.1M  380M    1%                                                                                           
+                                            /run                                                                                                 
+                                    /dev/mmcblk2p6   14G                                                                                         
+                                     8.2G  5.1G   62% /                                                                                          
+                                    tmpfs           1.9G                                                                                         
+                                       0  1.9G    0%                                                                                             
+                                          /dev/shm                                                                                               
+                                    tmpfs           5.0M                                                                                         
+    5               df -h             12K  5.0M    1%              /dev                 contains                           PASS                  
+                                         /run/lock                                                                                               
+                                    /dev/mmcblk2p5  224M                                                                                         
+                                      27M  180M   13%                                                                                            
+                                           /boot                                                                                                 
+                                    tmpfs           383M                                                                                         
+                                      80K  383M    1%                                                                                            
+                                       /run/user/120                                                                                             
+                                    tmpfs           383M                                                                                         
+                                      64K  383M    1%                                                                                            
+                                        /run/user/0                                                                                              
+                                          [?2004h                                                                                               
+
+Generated on: 2024-06-28 17:20:14
