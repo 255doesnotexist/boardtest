@@ -16,7 +16,7 @@ class MainController:
         self.board_name = self.board_config['board']['board_name']
         self.os_manager = OSImageManager(self.board_name, self.board_config['os_list'], self.board_config['serial']['serial_name'])
     
-    def run_test_suite(self, os_name, serial, flash=True, test=True):
+    def run_test_suite(self, os_name, serial, flash=True, test=True, stdout_log=True):
         """Run the test suite for the specified OS name and serial number."""
         os_info = self.board_config['os_list'][os_name]
         url = os_info['url']
@@ -55,7 +55,7 @@ class MainController:
                 auto_login = {str(auto_login).lower()}
                 username = "{username}"
                 password = "{password}"
-                stdout_log = true
+                stdout_log = "{"true" if stdout_log else "false"}"
                 login_prompts = {login_prompts}
                 password_prompts = {password_prompts}
                 shell_prompt = "{shell_prompt}"
