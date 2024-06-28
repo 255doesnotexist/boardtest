@@ -128,12 +128,13 @@ class pyautotest_driver:
                 self.logger.info(f"Detected password prompt: {line.strip()}")
                 return
 
-    def run_command_and_check_output(self, cmd, patterns, timeout):
+    def run_command(self, cmd, timeout):
+        """Run a command and return the output without checking the result."""
         if not self.serial_conn or not self.serial_conn.is_open:
             self._open_serial_port()
         if not self.serial_conn:
             self.logger.error("Failed to open serial port.")
-            return "", False
+            return ""
 
         self.logger.info(f"Running command: {cmd}")
         with self.lock:  # 获取锁，确保读写操作不会同时进行
@@ -141,7 +142,6 @@ class pyautotest_driver:
             self.serial_conn.write((cmd + '\n').encode('utf-8'))
             start_time = time.time()
             output = ""
-            matched = False
             while time.time() - start_time < timeout:
                 try:
                     if not self.running:  # 检查运行状态
@@ -165,13 +165,6 @@ class pyautotest_driver:
                         if self.stdout_log:
                             print(line, end='')
                         self.logger.debug(line)
-                        
-                        # 在去掉命令本身和shell_prompt之后进行匹配
-                        for pattern in patterns:
-                            if pattern in line:
-                                matched = True
-                                self.logger.info(f"Pattern matched: {pattern}")
-                                break
                     elif self.serial_conn and self.serial_conn.in_waiting == 0:
                         # 处理设备未返回数据的情况
                         time.sleep(0.1)
@@ -181,60 +174,13 @@ class pyautotest_driver:
                     break
 
             self.logger.info(f"Command output: {output}")
-            self.logger.info(f"Matched: {matched}")
 
-        return output, matched
+        return output
 
-class TestFramework:
-    def __init__(self, config):
-        """Initialize the test framework with the given configuration."""
-        self.driver = pyautotest_driver(config)
-    
-    def start(self):
-        """Start the test framework."""
-        self.driver.start()
-    
-    def stop(self):
-        """Stop the test framework."""
-        self.driver.stop()
-    
     def run_command_and_check_output(self, cmd, patterns, timeout):
-        """Run a command on the Device Under Test (DUT) and check the output for specific patterns within a timeout."""
-        return self.driver.run_command_and_check_output(cmd, patterns, timeout)
-
-    def run_tests(self):
-        """Run a series of predefined tests."""
-        tests = [
-            ("uname -a", ["Linux"], 10),
-            ("cat /etc/os-release", ["ID=", "VERSION="], 10),
-            ("cat /proc/cpuinfo", ["processor", "model name"], 10)
-        ]
-        for cmd, patterns, timeout in tests:
-            output, matched = self.run_command_and_check_output(cmd, patterns, timeout)
-            print(f"Command: {cmd}")
-            print(f"Output: {output}")
-            print(f"Matched: {matched}")
-            print("-" * 50)
-
-# 示例用法
-if __name__ == "__main__":
-    config = """
-    log_dir = "./logs"
-    [env]
-    [serial]
-    serial_file = "/dev/ttyUSB0"
-    bund_rate   = 115200
-    timeout = 1  # 新增timeout配置
-    auto_login = true
-    username = "root"
-    password = "bianbu"
-    stdout_log = true
-    login_prompts = ["login:", "用户名：", "Username:", "用户名:"]
-    password_prompts = ["Password:", "密码：", "秘密："]
-    shell_prompt = "root@k1:~#"  # 新增shell提示符
-    """
-
-    framework = TestFramework(config)
-    framework.start()
-    framework.run_tests()
-    framework.stop()
+        """Run a command and check if the output matches any of the given patterns."""
+        output = self.run_command(cmd, timeout)
+        matched = any(pattern in output for pattern in patterns)
+        self.logger.info(f"Command output: {output}")
+        self.logger.info(f"Matched: {matched}")
+        return output, matched

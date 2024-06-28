@@ -11,7 +11,13 @@ serial_name = "sdwirec_alpha"
 sd_mux_device = "/dev/sda"
 
 [os_list]
-[os_list.Armbian]
-url = "/home/xyz/2024-06-14-Armbian-bpi-SpacemiT_24.5.0-trunk_Bananapif3_sid_legacy_6.1.15.img"
+[os_list.Bianbu]
+url = "/home/xyz/bianbu-23.10-nas-k1-v1.0rc1-release-20240429192450.img"
 dd_params = ["bs=4M", "conv=fsync", "status=progress"]
-test_config = "./tests/armbian_test.toml"
+test_config = "./tests/bianbu_test.toml"
+auto_login = true
+username = "root"
+password = "bianbu"
+login_prompts = ["login:", "用户名：", "Username:", "用户名:"]
+password_prompts = ["Password:", "密码：", "Secret:"]
+shell_prompt = "root@k1:~#"

@@ -1,0 +1,7 @@
+tests = [
+    {name = "uname_test", command = "uname -a", expected_output = "Linux", method = "contains", timeout = 10},
+    {name = "os_release_test", command = "cat /etc/os-release", expected_output = "Bianbu", method = "contains", timeout = 10},
+    {name = "cpu_info_test", command = "cat /proc/cpuinfo", expected_output = "processor", method = "contains", timeout = 10},
+    {name = "memory_info_test", command = "cat /proc/meminfo", expected_output = "MemTotal", method = "contains", timeout = 10},
+    {name = "disk_usage_test", command = "df -h", expected_output = "/dev", method = "contains", timeout = 10}
+]

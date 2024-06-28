@@ -27,7 +27,7 @@ class TestManager:
     def evaluate_result(self, output, expected_output, method, test_case):
         """Evaluate the result of a test case based on the specified method."""
         if method == 'exact':
-            return output == expected_output
+            return output.strip() == expected_output
         elif method == 'contains':
             return expected_output in output
         elif method == 'exit_code':
