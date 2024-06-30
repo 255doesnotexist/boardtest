@@ -43,6 +43,7 @@ options:
 - ~~flash image functionality~~ (done)
 - ~~test suite functionality~~ (done)
 - cut un-needed stdout logs (WIP)
+- usbsdmux package support (WIP)
 
 ## Device Compatibility
 
