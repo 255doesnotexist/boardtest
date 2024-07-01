@@ -50,6 +50,10 @@ options:
 - SD-Mux Devices: SDWireC (tested)
 - Serial Devices: CP2102 USB-UART
 
+- Boards (Compattibility depends on your own config) :
+ 1. Banana Pi BPI-F3 / SpacemiT K1
+ 2. StarFive VisionFive / JH7100 (flash partially supported but boot stucks on detecting block devices so testing unavailable) [Maybe a SDWireC problem]
+
 ## Dependency
 
 - sd-mux-ctrl binary added to PATH
