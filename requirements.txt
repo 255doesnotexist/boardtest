@@ -1,0 +1,22 @@
+beautifulsoup4==4.12.3
+certifi @ file:///croot/certifi_1717618050233/work/certifi
+charset-normalizer==3.3.2
+filelock==3.15.4
+future==1.0.0
+gdown==5.2.0
+idna==3.7
+iso8601==2.1.0
+markdown-it-py==3.0.0
+mdurl==0.1.2
+pyautotest @ file:///home/xyz/pyautotest-0.3.7-cp37-abi3-manylinux_2_34_x86_64.whl#sha256=8e4d01da5fbc64694553b9976387f505d4c78eb613f3963fb56a830ecfc57f88
+Pygments==2.18.0
+pyserial==3.5
+PySocks==1.7.1
+PyYAML==6.0.1
+requests==2.32.3
+rich==13.7.1
+soupsieve==2.5
+texttable==1.7.0
+toml==0.10.2
+tqdm==4.66.4
+urllib3==2.2.2
