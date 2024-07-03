@@ -23,7 +23,9 @@ class SDMuxBaseController:
         """Power cycle the Device Under Test (DUT)."""
         raise NotImplementedError("Method 'power_cycle_dut' not implemented in subclass.")
 
-class SDMuxController:
+class SDMuxCtrlController(SDMuxBaseController):
+    """Controller for managing SD-Mux via sd-mux-ctrl."""
+    
     def list_devices(self):
         """List all devices connected to the SD-Mux controller."""
         command = ['sudo', 'sd-mux-ctrl', '-l']
@@ -46,7 +48,7 @@ class SDMuxController:
         print(f"Executing command: {' '.join(command)}")
         result = subprocess.run(command, capture_output=True, text=True)
         print(f"Connecting SD card to DUT with serial {serial}:")
-        print(result)
+        print(result.stdout if result.stdout else "Connected to DUT successfully.")
     
     def connect_to_ts(self, serial):
         """Connect the SD card to the Test Server (TS)."""
