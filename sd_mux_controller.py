@@ -1,5 +1,28 @@
 import subprocess
 
+class SDMuxBaseController:
+    """Base class for SD-Mux controllers."""
+    
+    def list_devices(self):
+        """List all devices connected to the SD-Mux controller."""
+        raise NotImplementedError("Method 'list_devices' not implemented in subclass.")
+    
+    def set_serial(self, serial):
+        """Set the serial number for the SD-Mux controller."""
+        raise NotImplementedError("Method 'set_serial' not implemented in subclass.")
+    
+    def connect_to_dut(self, serial):
+        """Connect the SD card to the Device Under Test (DUT)."""
+        raise NotImplementedError("Method 'connect_to_dut' not implemented in subclass.")
+    
+    def connect_to_ts(self, serial):
+        """Connect the SD card to the Test Server (TS)."""
+        raise NotImplementedError("Method 'connect_to_ts' not implemented in subclass.")
+    
+    def power_cycle_dut(self, serial):
+        """Power cycle the Device Under Test (DUT)."""
+        raise NotImplementedError("Method 'power_cycle_dut' not implemented in subclass.")
+
 class SDMuxController:
     def list_devices(self):
         """List all devices connected to the SD-Mux controller."""
