@@ -65,3 +65,29 @@ class SDMuxCtrlController(SDMuxBaseController):
         result = subprocess.run(command, capture_output=True, text=True)
         print(f"Power cycling DUT with serial {serial}:")
         print(result.stdout if result.stdout else "Power cycle completed successfully.")
+
+class SDMuxController:
+    """High-level controller for managing SD-Mux devices using different implementations."""
+    
+    def __init__(self, use_usbsdmux=False):
+        self.controller = SDMuxCtrlController()
+    
+    def list_devices(self):
+        """List all devices connected to the SD-Mux controller."""
+        self.controller.list_devices()
+    
+    def set_serial(self, serial):
+        """Set the serial number for the SD-Mux controller."""
+        self.controller.set_serial(serial)
+    
+    def connect_to_dut(self, serial=None):
+        """Connect the SD card to the Device Under Test (DUT)."""
+        self.controller.connect_to_dut(serial)
+    
+    def connect_to_ts(self, serial=None):
+        """Connect the SD card to the Test Server (TS)."""
+        self.controller.connect_to_ts(serial)
+    
+    def power_cycle_dut(self, serial=None):
+        """Power cycle the Device Under Test (DUT)."""
+        self.controller.power_cycle_dut(serial)
