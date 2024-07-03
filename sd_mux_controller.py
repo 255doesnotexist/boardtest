@@ -66,11 +66,58 @@ class SDMuxCtrlController(SDMuxBaseController):
         print(f"Power cycling DUT with serial {serial}:")
         print(result.stdout if result.stdout else "Power cycle completed successfully.")
 
+class UsbSDMuxController(SDMuxBaseController):
+    """Controller for managing SD-Mux via usbsdmux."""
+    
+    def __init__(self):
+        self.sda_device = self._detect_sda_device()
+        self.sg_device = self._detect_sg_device()
+    
+    def _detect_sda_device(self):
+        """Detect /dev/sda device, or read from configuration."""
+        # TODO: Implement detection logic here
+        # Maybe read from dd config?
+        return '/dev/sda'
+    
+    def _detect_sg_device(self):
+        """Detect /dev/sg0 device, or read from configuration."""
+        # TODO: Implement detection logic here
+        # With lsscsi or scan the /sys/class/scsi_generic/sgX/device/block?
+        return '/dev/sg0'
+    
+    def list_devices(self):
+        """List all devices connected to the SD-Mux controller."""
+        print("usbsdmux does not support listing devices.")
+    
+    def set_serial(self, serial):
+        """Set the serial number for the SD-Mux controller."""
+        print("usbsdmux does not support setting serial number.")
+    
+    def connect_to_dut(self, serial=None):
+        """Connect the SD card to the Device Under Test (DUT)."""
+        command = ['sudo', 'usbsdmux', self.sg_device, 'dut']
+        print(f"Executing command: {' '.join(command)}")
+        result = subprocess.run(command, capture_output=True, text=True)
+        print("Connecting SD card to DUT:")
+        print(result.stdout if result.stdout else "Connected to DUT successfully.")
+    
+    def connect_to_ts(self, serial=None):
+        """Connect the SD card to the Test Server (TS)."""
+        command = ['sudo', 'usbsdmux', self.sg_device, 'host']
+        print(f"Executing command: {' '.join(command)}")
+        result = subprocess.run(command, capture_output=True, text=True)
+        print("Connecting SD card to TS:")
+        print(result.stdout if result.stdout else "Connected to TS successfully.")
+    
+    def power_cycle_dut(self, serial=None):
+        """Power cycle the Device Under Test (DUT)."""
+        print("usbsdmux does not support power cycling.")
+
 class SDMuxController:
     """High-level controller for managing SD-Mux devices using different implementations."""
     
     def __init__(self, use_usbsdmux=False):
-        self.controller = SDMuxCtrlController()
+        self.controller = UsbSDMuxController() if use_usbsdmux else SDMuxCtrlController()
     
     def list_devices(self):
         """List all devices connected to the SD-Mux controller."""
