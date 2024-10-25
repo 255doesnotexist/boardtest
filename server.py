@@ -1,6 +1,6 @@
-import json
 import subprocess
 import asyncio
+import json
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi import Request
@@ -38,7 +38,17 @@ html = """
                         ws = new WebSocket(data.ws_url);
                         ws.onmessage = function(event) {
                             var output = document.getElementById("output");
-                            output.value += event.data + "\\n";
+                            output.value += event.data;
+                        };
+                        ws.onopen = function() {
+                            console.log("WebSocket connection opened");
+                            ws.send(JSON.stringify({token: "your_token_here", args: args}));
+                        };
+                        ws.onerror = function(error) {
+                            console.log("WebSocket error: " + error);
+                        };
+                        ws.onclose = function() {
+                            console.log("WebSocket connection closed");
                         };
                     } else {
                         alert("Failed to start test: " + data.message);
@@ -58,7 +68,9 @@ async def get():
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     try:
+        print("WebSocket connection accepted")
         data = await websocket.receive_text()
+        print(f"Received data: {data}")
         data = json.loads(data)
         token = data.get("token")
         args = data.get("args")
@@ -66,6 +78,7 @@ async def websocket_endpoint(websocket: WebSocket):
         if token != SECRET_TOKEN:
             await websocket.send_text("Invalid token.")
             await websocket.close()
+            print(f"Invalid token received: {token}")
             return
 
         process = await asyncio.create_subprocess_exec(
@@ -74,17 +87,20 @@ async def websocket_endpoint(websocket: WebSocket):
             stderr=asyncio.subprocess.PIPE
         )
         while True:
-            line = await process.stdout.readline()
-            if not line:
+            char = await process.stdout.read(1)
+            if not char:
                 break
-            await websocket.send_text(line.decode('utf-8').strip())
+            await websocket.send_text(char.decode('utf-8'))
+            print(f"Sent char: {char.decode('utf-8')}")
         await process.wait()
         await websocket.send_text("Test completed.")
+        print("Test completed")
     except WebSocketDisconnect:
         print("Client disconnected")
     except Exception as e:
         await websocket.send_text(f"Error: {str(e)}")
         await websocket.close()
+        print(f"Error: {str(e)}")
 
 @app.post("/start_test")
 async def start_test(request: Request):
@@ -93,6 +109,7 @@ async def start_test(request: Request):
     args = data.get("args")
 
     if token != SECRET_TOKEN:
+        print(f"Invalid token: {token}")
         raise HTTPException(status_code=403, detail="Invalid token")
 
     ws_url = "ws://localhost:8000/ws"
