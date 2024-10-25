@@ -38,6 +38,10 @@ def parse_args():
         "-S", "--serial", type=str, default="sdwirec_alpha",
         help="Serial number of the SD Mux device."
     )
+    parser.add_argument(
+        "-y", "--yes", action="store_true", default=False,
+        help="Always say yes to all prompts. (may dangerous!!!)"
+    )
     
     return parser.parse_args()
 
@@ -58,7 +62,7 @@ if __name__ == "__main__":
         print("="*50)
         print(f"Running test suite for OS: {os_name}...")
         print("="*50)
-        results = controller.run_test_suite(os_name, args.serial, args.flash, args.test, args.stdout_log)
+        results = controller.run_test_suite(os_name, args.serial, args.flash, args.test, args.stdout_log, args.yes)
         print("\n")
         if results is not None:
             controller.generate_report(results)

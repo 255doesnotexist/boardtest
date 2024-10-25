@@ -19,7 +19,7 @@ class MainController:
         self.os_manager = OSImageManager(self.board_name, self.board_config['os_list'], self.board_config['serial']['serial_name'])
         self.console = Console()
     
-    def run_test_suite(self, os_name, serial, flash=True, test=True, stdout_log=True):
+    def run_test_suite(self, os_name, serial, flash=True, test=True, stdout_log=True, prompt_always_yes=False):
         """Run the test suite for the specified OS name and serial number."""
         os_info = self.board_config['os_list'][os_name]
         url = os_info['url']
@@ -44,7 +44,7 @@ class MainController:
         
         if test:
             self.console.print(f"\n[bold cyan]Preparing to start test framework for OS {os_name}...[/bold cyan]")
-            if not Confirm.ask("Do you want to continue with testing? [y/N]", default=False):
+            if not prompt_always_yes and not Confirm.ask("Do you want to continue with testing? [y/N]", default=False):
                 self.console.print("[bold red]Testing aborted by user.[/bold red]")
                 return
             
