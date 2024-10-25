@@ -5,7 +5,7 @@
 Example usage command
 
 ```sh
-sudo PYTHONPATH=. /home/xyz/miniconda3/envs/autotest/bin/python main.py --help
+sudo python main.py --help
 ```
 
 ```sh
@@ -53,6 +53,7 @@ options:
 - Boards (Compattibility depends on your own config) :
  1. Banana Pi BPI-F3 / SpacemiT K1
  2. StarFive VisionFive / JH7100 (flash partially supported but boot stucks on detecting block devices so testing unavailable) [Maybe a SDWireC problem]
+ 3. Milk-V Duo S
 
 ## Dependency
 
