@@ -59,6 +59,7 @@ options:
 - sd-mux-ctrl binary added to PATH
 - pyserial, toml, rich, texttable and etc
 - sudo permisson (to access /dev/sdX and /dev/ttyUSBX)
+- fastapi uvicorn websockets (for web server access)
 
 ## Example
 
