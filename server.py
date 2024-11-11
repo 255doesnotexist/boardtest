@@ -177,3 +177,33 @@ async def collect_output(test_id: str):
     remaining_output = await process.stdout.read()
     if remaining_output:
         test["output"].append(remaining_output.decode('utf-8'))
+        
+@app.post("/write_test")
+async def write_test(request: Request):
+    data = await request.json()
+    token = data.get("token")
+    test_name = data.get("test_name")
+    test_content = data.get("test_content")
+    if token != SECRET_TOKEN:
+        raise HTTPException(status_code=403, detail="Invalid token")
+    try:
+        with open(f"tests/{test_name}.toml", "w") as file:
+            file.write(test_content)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    return {"status": "success", "message": f"{test_name}.toml written successfully"}
+
+@app.post("/write_board_config")
+async def write_board_config(request: Request):
+    data = await request.json()
+    token = data.get("token")
+    board_config_name = data.get("board_config_name")
+    board_config_content = data.get("board_config_content")
+    if token != SECRET_TOKEN:
+        raise HTTPException(status_code=403, detail="Invalid token")
+    try:
+        with open(f"boards/{board_config_name}.toml", "w") as file:
+            file.write(board_config_content)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    return {"status": "success", "message": f"{board_config_name}.toml written successfully"}
