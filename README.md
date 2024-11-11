@@ -67,6 +67,7 @@ uvicorn server:app --host 0.0.0.0 --port 8000 --reload
 - pyserial, toml, rich, texttable and etc
 - sudo permisson (to access /dev/sdX and /dev/ttyUSBX)
 - fastapi uvicorn websockets (for web server access)
+- python-miio (optional, for auto powering on/off)
 
 ## Example
 
