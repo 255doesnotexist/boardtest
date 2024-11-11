@@ -9,6 +9,7 @@ app = FastAPI()
 with open("secret.token", "r") as file:
     SECRET_TOKEN = file.read().strip()
 
+# a demo page used to test the API
 html = """
 <!DOCTYPE html>
 <html>
@@ -73,6 +74,19 @@ active_tests = {}
 
 @app.post("/create_test")
 async def create_test(request: Request):
+    """
+    Create a new test with the given arguments.
+
+    Args:
+        token (str): the secret token to authenticate the request.
+        args (str): the arguments to pass to the test.
+
+    Returns:
+        A JSON object with the test id and status of the newly created test.
+
+    Raises:
+        HTTPException: If the token is invalid.
+    """
     data = await request.json()
     token = data.get("token")
     args = data.get("args")
@@ -94,6 +108,19 @@ async def create_test(request: Request):
 
 @app.post("/start_test/{test_id}")
 async def start_test(test_id: str, request: Request):
+    """
+    Start the test process for the given test ID.
+
+    Args:
+        test_id (str): The unique identifier of the test to start.
+        request (Request): The request object containing the token for authentication.
+
+    Returns:
+        A JSON object with the status of the test and the test ID.
+
+    Raises:
+        HTTPException: If the token is invalid, test is not found, or test is already running.
+    """
     data = await request.json()
     if data.get("token") != SECRET_TOKEN:
         raise HTTPException(status_code=403, detail="Invalid token")
@@ -120,6 +147,19 @@ async def start_test(test_id: str, request: Request):
 
 @app.get("/test_status/{test_id}")
 async def get_test_status(test_id: str, request: Request):
+    """
+    Retrieve the status of a specific test.
+
+    Args:
+        test_id (str): The unique identifier of the test to retrieve the status for.
+        request (Request): The request object for authentication and other request data.
+
+    Returns:
+        A JSON object with the current status of the test.
+
+    Raises:
+        HTTPException: If the test is not found.
+    """
     if test_id not in active_tests:
         raise HTTPException(status_code=404, detail="Test not found")
     
@@ -130,6 +170,19 @@ async def get_test_status(test_id: str, request: Request):
 
 @app.get("/test_output/{test_id}")
 async def get_test_output(test_id: str, length: int):
+    """
+    Retrieve a portion of the test output.
+
+    Args:
+        test_id (str): The unique identifier of the test.
+        length (int): The number of characters to skip from the beginning of the output.
+
+    Returns:
+        A JSON object with the output of the test and the length of the output.
+
+    Raises:
+        HTTPException: If the test is not found.
+    """
     if test_id not in active_tests:
         raise HTTPException(status_code=404, detail="Test not found")
     
@@ -142,6 +195,19 @@ async def get_test_output(test_id: str, length: int):
 
 @app.post("/stop_test/{test_id}")
 async def stop_test(test_id: str, request: Request):
+    """
+    Stop a running test.
+
+    Args:
+        test_id (str): The unique identifier of the test to stop.
+        request (Request): The request object for authentication and other request data.
+
+    Returns:
+        A JSON object with the current status of the test.
+
+    Raises:
+        HTTPException: If the test is not found or the token is invalid.
+    """
     data = await request.json()
     if data.get("token") != SECRET_TOKEN:
         raise HTTPException(status_code=403, detail="Invalid token")
@@ -157,6 +223,19 @@ async def stop_test(test_id: str, request: Request):
     return {"status": test["status"]}
 
 async def collect_output(test_id: str):
+    """
+    Collect output from a running test process.
+
+    This function is run in the background as a task to collect the output from a test process.
+    It will stop when the test is stopped or completed.
+
+    Args:
+        test_id (str): The unique identifier of the test.
+
+    Returns:
+        None
+    """
+    
     test = active_tests[test_id]
     process = test["process"]
     
@@ -180,6 +259,21 @@ async def collect_output(test_id: str):
         
 @app.post("/write_test")
 async def write_test(request: Request):
+    """
+    Write a test configuration to a file.
+
+    This endpoint allows writing a test configuration to a TOML file with the given test name and content.
+    If the file already exists, it will be overridden.
+
+    Args:
+        request (Request): The request object containing JSON data with 'token', 'test_name', and 'test_content'.
+
+    Returns:
+        A JSON object indicating the success status, message, and whether the file was overridden.
+
+    Raises:
+        HTTPException: If the token is invalid or there is an error writing the file.
+    """
     data = await request.json()
     token = data.get("token")
     test_name = data.get("test_name")
