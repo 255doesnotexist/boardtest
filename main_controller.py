@@ -21,7 +21,7 @@ class MainController:
             else MiSdkController(self.board_config['mi_sdk']['token'], self.board_config['mi_sdk']['ip_address'], self.board_config['mi_sdk']['device_id'])
         self.console = Console()
     
-    def run_test_suite(self, os_name, serial, flash=True, test=True, stdout_log=True, prompt_always_yes=False):
+    def run_test_suite(self, os_name, serial, flash=True, test=True, stdout_log=True, prompt_always_yes=False, mi_sdk_enabled=False):
         """Run the test suite for the specified OS name and serial number."""
         os_info = self.board_config['os_list'][os_name]
         url = os_info['url']
@@ -33,7 +33,7 @@ class MainController:
                 self.console.print("[bold red]Flashing aborted by user.[/bold red]")
                 return
             
-            if self.mi_sdk_controller != None:
+            if mi_sdk_enabled and self.mi_sdk_controller != None:
                 self.console.print(f"[bold yellow]Detected Mi SDK config for {board_name}, powering device off...[/bold yellow]")
                 self.mi_sdk_controller.turn_off()
             
@@ -55,7 +55,7 @@ class MainController:
                 return
             
             self.console.print("Starting test framework...")
-            if self.mi_sdk_controller != None:
+            if mi_sdk_enabled and self.mi_sdk_controller != None:
                 self.console.print(f"[bold yellow]Detected Mi SDK config for {board_name}, powering device on...[/bold yellow]")
                 self.mi_sdk_controller.turn_on()
             
