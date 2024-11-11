@@ -17,6 +17,8 @@ class MainController:
         self.sd_mux_device = self.board_config['serial']['sd_mux_device']
         self.board_name = self.board_config['board']['board_name']
         self.os_manager = OSImageManager(self.board_name, self.board_config['os_list'], self.board_config['serial']['serial_name'])
+        self.mi_sdk_controller = None if 'mi_sdk' not in self.board_config 
+            else MiSdkController(self.board_config['mi_sdk']['token'], self.board_config['mi_sdk']['ip_address'], self.board_config['mi_sdk']['device_id'])
         self.console = Console()
     
     def run_test_suite(self, os_name, serial, flash=True, test=True, stdout_log=True, prompt_always_yes=False):
