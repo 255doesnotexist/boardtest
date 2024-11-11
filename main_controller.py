@@ -33,6 +33,10 @@ class MainController:
                 self.console.print("[bold red]Flashing aborted by user.[/bold red]")
                 return
             
+            if self.mi_sdk_controller != None:
+                self.console.print(f"[bold yellow]Detected Mi SDK config for {board_name}, powering device off...[/bold yellow]")
+                self.mi_sdk_controller.turn_off()
+            
             image_path = self.os_manager.download_image(os_name, url)
             device = self.sd_mux_device if self.sd_mux_device else self.os_manager.detect_device()
             
@@ -51,6 +55,9 @@ class MainController:
                 return
             
             self.console.print("Starting test framework...")
+            if self.mi_sdk_controller != None:
+                self.console.print(f"[bold yellow]Detected Mi SDK config for {board_name}, powering device on...[/bold yellow]")
+                self.mi_sdk_controller.turn_on()
             
             # 获取OS相关的自动登录、默认用户名密码、login password shell prompt
             auto_login = os_info.get('auto_login', True)
